@@ -9,36 +9,46 @@
 <body>
 
   <div class="float-text">
-    <span class="studio-name">nat/yama</span>
+    <!-- タイトルと言語ラベル -->
+    <div class="header-row">
+      <span class="studio-name">nat/yama</span>
+      <span class="lang-labels">
+        <span data-lang="en">EN</span> | 
+        <span data-lang="ja">JP</span> | 
+        <span data-lang="de">DE</span>
+      </span>
+    </div>
 
-    <p class="lang en">
-      is working across culture and education,<br>
-      research becomes a starting point<br>
-      for shaping complex ideas<br>
-      into experiences.
-    </p>
+    <!-- 本文 -->
+    <div class="text-box">
+      <p class="lang en">
+        is working across culture and education,<br>
+        research becomes a starting point<br>
+        for shaping complex ideas<br>
+        into experiences.
+      </p>
 
-    <p class="lang ja">
-      は文化と教育の領域を横断し、<br>
-      リサーチを起点にしながら<br>
-      複雑なことや概念を<br>
-      視覚や体験として構成します。
-    </p>
+      <p class="lang ja">
+        は文化と教育の領域を横断し、<br>
+        リサーチを起点に<br>
+        複雑なことや概念を<br>
+        デザインや体験として構成します。
+      </p>
 
-    <p class="lang de">
-      arbeitet im Bereich Kultur und Bildung,<br>
-      Forschungsansätze dienen als Ausgangspunkt<br>
-      für die Gestaltung komplexer Ideen<br>
-      in Erlebnisse.
-    </p>
-
-    <!-- 本文下に言語ラベル -->
-    <div class="lang-labels">
-      <span data-lang="en">EN</span> | 
-      <span data-lang="ja">JP</span> | 
-      <span data-lang="de">DE</span>
+      <p class="lang de">
+        arbeitet im Bereich Kultur und Bildung,<br>
+        Forschungsansätze dienen als Ausgangspunkt<br>
+        für die Gestaltung komplexer Ideen<br>
+        in Erlebnisse.
+      </p>
     </div>
   </div>
+
+  <!-- 背景SVG: 抽象形態 -->
+  <svg class="abstract-shape" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid meet">
+    <path d="M100,300 C200,50 400,550 500,300" class="shape-line" />
+    <path d="M150,350 C250,100 350,500 450,350" class="shape-line" />
+  </svg>
 
   <script src="script.js"></script>
 </body>
