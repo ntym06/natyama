@@ -12,33 +12,30 @@ const langColors = {
   de: { bg: [255,255,255], fg: [50,50,50] }
 };
 
-// ブラウザ言語で初期判定
+// ブラウザ言語判定
 let userLang = navigator.language || navigator.userLanguage;
 userLang = userLang.toLowerCase();
-
 let lang = 'en';
 if(userLang.startsWith('de')) lang = 'de';
 else if(userLang.startsWith('ja')) lang = 'ja';
 
+// 表示更新
 function showLang(lang) {
   blocks.forEach(b => b.classList.remove('active'));
   document.querySelector('.lang.'+lang).classList.add('active');
 
-  // 背景・文字色設定
   const {bg, fg} = langColors[lang];
   body.style.background = `rgb(${bg[0]},${bg[1]},${bg[2]})`;
   floatText.querySelector('.text-box').style.color = `rgba(${fg[0]},${fg[1]},${fg[2]},0.85)`;
   studioName.style.color = `rgba(${fg[0]},${fg[1]},${fg[2]},0.85)`;
   label.style.color = `rgba(${fg[0]},${fg[1]},${fg[2]},0.35)`;
-
-  // 言語ラベル表示
   label.textContent = lang.toUpperCase();
 }
 
 // 初期表示
 showLang(lang);
 
-// スクロールに応じた文字のにじみ・消失 & イメージ表示
+// スクロールで本文にじみ消失 & イメージ表示
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
   const maxScroll = 500; 
@@ -46,10 +43,14 @@ window.addEventListener('scroll', () => {
 
   floatText.querySelector('.text-box').style.filter = `blur(${t*4}px)`;
   floatText.querySelector('.text-box').style.opacity = 1 - t;
-  studioName.style.opacity = 1 - t;
-  label.style.opacity = 1 - t;
 
-  if(t >= 1) {
+  // タイトル・ラベルも微妙に変化（透明度は減らさず色で柔らかく）
+  const alpha = 0.85 - t*0.25; 
+  studioName.style.color = `rgba(20,40,80,${alpha})`;
+  label.style.color = `rgba(20,40,80,${alpha*0.5})`;
+
+  // イメージ表示
+  if(t >= 1){
     afterScroll.style.display = 'block';
     afterScroll.style.opacity = 1;
   } else {
@@ -58,7 +59,7 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// 背景の刻々変化
+// 背景刻々変化
 function animateBackground() {
   const now = new Date();
   const seconds = now.getHours()*3600 + now.getMinutes()*60 + now.getSeconds();
