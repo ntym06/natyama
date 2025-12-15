@@ -1,10 +1,9 @@
 body {
   margin: 0;
-  min-height: 200vh;
-  transition: background 0.6s ease;
+  min-height: 200vh; /* ← スクロール必須 */
+  transition: background-color 0.8s ease;
 }
 
-/* テキストコンテナ */
 .float-text {
   position: fixed;
   inset: 0;
@@ -12,13 +11,13 @@ body {
   pointer-events: none;
 }
 
-/* 各言語ブロック */
+/* 言語ブロック */
 .lang {
   opacity: 0;
-  transition: opacity 0.9s ease;
+  transition: opacity 0.8s ease;
 }
 
-/* 表示中の言語だけ出す */
+/* 表示中だけ */
 .lang.active {
   opacity: 1;
 }
@@ -29,14 +28,13 @@ body {
   bottom: 2rem;
   right: 2rem;
   font-size: 12px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   pointer-events: auto;
 }
 
 .lang-labels span {
   cursor: pointer;
   opacity: 0.4;
-  transition: opacity 0.3s ease;
 }
 
 .lang-labels span:hover {
