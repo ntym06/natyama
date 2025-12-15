@@ -1,5 +1,9 @@
 * {
   box-sizing: border-box;
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  filter: none !important;
 }
 
 body {
@@ -8,7 +12,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff; /* JSで時間帯ごとに上書き */
+  background: #ffffff; /* 時間帯JSで上書き */
   color: #000000;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
@@ -21,40 +25,31 @@ body {
   font-size: 14px;
 }
 
-/* --- Text blocks (ALL STATIC) --- */
+/* --- Text blocks (STATIC) --- */
 
 .name {
-  font-size: 1.6rem;
+  font-size: 3rem;
   font-weight: 600;
-  margin-bottom: 1.4em;
+  margin-bottom: 1.5em;
 }
 
 .statement {
-  font-size: 1.2rem;
-  line-height: 1.4;
-  margin-bottom: 1.4em;
+  font-size: 3rem;
+  line-height: 1.35;
+  margin-bottom: 1.5em;
 }
 
 .contact {
-  font-size: 0.9rem;
+  font-size: 1.2rem;
 }
 
-/* --- Subtle ink texture only (NO motion) --- */
+/* --- Subtle ink texture only --- */
 
 .name,
 .statement,
 .contact {
   text-shadow:
-    0.25px 0 rgba(0,0,0,0.14),
-   -0.25px 0 rgba(0,0,0,0.14),
-    0 0.25px rgba(0,0,0,0.1);
-}
-
-/* --- HARD STOP: disable all animations & transforms --- */
-
-* {
-  animation: none !important;
-  transition: none !important;
-  transform: none !important;
-  filter: none !important;
+    0.3px 0 rgba(0,0,0,0.15),
+   -0.3px 0 rgba(0,0,0,0.15),
+    0 0.3px rgba(0,0,0,0.12);
 }
