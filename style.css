@@ -66,3 +66,15 @@ body {
   height: auto;
 }
 
+@keyframes typeBreath {
+  0%   { font-size: 1rem; }
+  40%  { font-size: 1.015rem; }
+  70%  { font-size: 0.985rem; }
+  100% { font-size: 1rem; }
+}
+
+.statement {
+  animation: typeBreath 8s infinite ease-in-out;
+}
+
+
