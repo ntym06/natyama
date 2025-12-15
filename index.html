@@ -1,102 +1,45 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>ランダムヒーローサイト</title>
-<style>
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  font-family: sans-serif;
-  overflow: hidden;
-}
-
-.hero-container {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  background-color: #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hero-text {
-  position: absolute;
-  text-align: center;
-  font-size: 3rem;
-  color: white;
-  transition: opacity 2s ease;
-  z-index: 2;
-}
-
-.hero-content {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  opacity: 0;
-  transition: opacity 2s ease;
-  z-index: 1;
-}
-
-.hero-content img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.caption {
-  position: absolute;
-  bottom: 10%;
-  left: 5%;
-  font-size: 1.5rem;
-  color: white;
-  text-shadow: 0 0 8px rgba(0,0,0,0.5);
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nat/yama</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="hero-container">
-  <div class="hero-text" id="heroText">今日の一言: 想像力が世界をつくる</div>
+  <div class="float-text">
+    <span class="studio-name">nat/yama</span>
 
-  <div class="hero-content" id="heroContent">
-    <img id="heroImage" src="" alt="Hero Image">
-    <div class="caption" id="heroCaption"></div>
+    <p class="lang en">
+      is a studio working across culture and education,<br>
+      research becomes a starting point<br>
+      for shaping complex ideas<br>
+      into design and experience.
+    </p>
+
+    <p class="lang ja">
+      は文化と教育の領域を横断し、<br>
+      リサーチを起点に<br>
+      複雑なアイデアを<br>
+      デザインや体験として構成しています。
+    </p>
+
+    <p class="lang de">
+      arbeitet im Bereich Kultur und Bildung,<br>
+      Forschungsansätze dienen als Ausgangspunkt<br>
+      für die Gestaltung komplexer Ideen<br>
+      in Design und Erlebnis.
+    </p>
+
+    <!-- 本文下に言語ラベル -->
+    <div class="lang-labels">
+      <span data-lang="en">EN</span> | 
+      <span data-lang="ja">JP</span> | 
+      <span data-lang="de">DE</span>
+    </div>
   </div>
-</div>
 
-<script>
-// 画像とキャプションのサンプル
-const heroSamples = [
-  { src: 'images/poetic-collage.jpg', caption: 'ポエティックなコラージュ' },
-  { src: 'images/mock-screen.jpg', caption: 'アプリ・PCの白紙モック画面' },
-  { src: 'images/print-style.jpg', caption: '印刷媒体風' }
-];
-
-const heroText = document.getElementById('heroText');
-const heroContent = document.getElementById('heroContent');
-const heroImage = document.getElementById('heroImage');
-const heroCaption = document.getElementById('heroCaption');
-
-function showRandomHero() {
-  const sample = heroSamples[Math.floor(Math.random() * heroSamples.length)];
-  heroImage.src = sample.src;
-  heroCaption.textContent = sample.caption;
-}
-
-// 文字表示 → フェードアウト → ヒーロー画像フェードイン
-setTimeout(() => {
-  heroText.style.opacity = 0;
-  setTimeout(() => {
-    showRandomHero();
-    heroContent.style.opacity = 1;
-  }, 2000);
-}, 3000);
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
