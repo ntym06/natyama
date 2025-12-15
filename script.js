@@ -38,7 +38,7 @@ showLang(lang);
 // 背景・文字色を時間経過で緩やかに変化（ユーザーが切替なくても）
 function animateColors() {
   const now = new Date();
-  const t = (now.getHours()*3600 + now.getMinutes()*60 + now.getSeconds()) / (24*3600); // 0〜1
+  const t = (Date.now() % (60*1000*5)) / (60*1000*5); // 5分で1周期
 
   const {bg, fg} = langColors[lang];
   const delta = [5,5,5]; // わずかな変化
