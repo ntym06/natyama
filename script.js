@@ -54,13 +54,6 @@ function animateBackground() {
   requestAnimationFrame(animateBackground);
 }
 
-const colors = ['#fefbd8','#d0f0fd','#fde2e4','#e3fde2','#fde2fd'];
-let i = 0;
-setInterval(() => {
-  document.body.style.backgroundColor = colors[i % colors.length];
-  i++;
-}, 5000);
-
 animateBackground();
 
 // スクロールに応じた文字のにじみ・消失
