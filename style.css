@@ -50,3 +50,15 @@ body {
     0 -0.4px rgba(0,0,0,0.15),
     0.8px 0.8px rgba(0,0,0,0.08);
 }
+
+@keyframes blurShift {
+  0%   { filter: blur(0px); }
+  40%  { filter: blur(0.25px); }
+  60%  { filter: blur(0.45px); }
+  100% { filter: blur(0px); }
+}
+
+.statement {
+  animation: blurShift 7s infinite ease-in-out;
+}
+
