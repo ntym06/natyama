@@ -38,7 +38,7 @@ showLang(lang);
 // 背景・文字色を時間経過で緩やかに変化（ユーザーが切替なくても）
 function animateColors() {
   const now = new Date();
-  const t = (Date.now() % (60*1000*5)) / (60*1000*5); // 5分で1周期
+  const t = (now.getHours()*3600 + now.getMinutes()*60 + now.getSeconds()) / (24*3600); // 0〜1
 
   const {bg, fg} = langColors[lang];
   const delta = [5,5,5]; // わずかな変化
@@ -50,4 +50,28 @@ function animateColors() {
   const fr = Math.round(fg[0] + Math.sin(t*2*Math.PI)*delta[0]);
   const fgc = Math.round(fg[1] + Math.sin(t*2*Math.PI)*delta[1]);
   const fb = Math.round(fg[2] + Math.sin(t*2*Math.PI)*delta[2]);
-  floatText.querySelector('.text-box'
+  floatText.querySelector('.text-box').style.color = `rgba(${fr},${fgc},${fb},0.85)`;
+  studioName.style.color = `rgba(${fr},${fgc},${fb},0.85)`;
+  labels.forEach(span => span.style.color = `rgba(${fr},${fgc},${fb},0.35)`);
+
+  requestAnimationFrame(animateColors);
+}
+animateColors();
+
+// スクロールによる文字のにじみ・消失
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const maxScroll = 500;
+  const t = Math.min(scrollY / maxScroll, 1);
+
+  floatText.querySelector('.text-box').style.filter = `blur(${t*4}px)`;
+  floatText.querySelector('.text-box').style.opacity = 1 - t;
+});
+
+// 言語ラベルクリックで切替
+labels.forEach(label => {
+  label.addEventListener('click', () => {
+    const selected = label.dataset.lang;
+    showLang(selected);
+  });
+});
