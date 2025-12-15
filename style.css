@@ -1,44 +1,3 @@
-* {
-  box-sizing: border-box;
-  animation: none;
-  transition: none;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-}
-
-body {
-  background: #ffffff;
-  overflow: hidden;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-.lang-switch {
-  position: absolute;
-  top: 1em;
-  left: 1em;
-  z-index: 10;
-}
-
-.lang-switch button {
-  margin-right: 0.5em;
-  padding: 0.3em 0.6em;
-  font-size: 0.75rem;
-  background: none;
-  border: 1px solid rgba(0,0,0,0.2);
-  border-radius: 4px;
-  cursor: pointer;
-  opacity: 0.7;
-}
-
-.lang-switch button:hover {
-  opacity: 1;
-}
-
 .float-text {
   position: absolute;
   top: 50%;
@@ -50,17 +9,28 @@ body {
   line-height: 1.6;
   text-align: left;
 
-  color: rgba(20, 40, 80, 0.35);
-  letter-spacing: 0.02em;
-
-  text-shadow: 0 0 0.6px rgba(20,40,80,0.15);
+  color: rgba(20,40,80,0.35);
   pointer-events: none;
 }
 
-.lang {
-  display: none;
+.lang { display: none; }
+.lang.active { display: block; }
+
+.studio-name { font-weight: 600; margin-right: 0.3em; }
+
+.lang-switch {
+  font-size: 0.65rem;
+  opacity: 0.4;
+  margin-left: 0.5em;
 }
 
-.lang.active {
-  display: block;
+.lang-switch button {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.65rem;
+  color: inherit;
+  cursor: pointer;
 }
+
+.lang-switch button:hover { opacity: 0.9; }
