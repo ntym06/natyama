@@ -15,4 +15,35 @@ body {
 
 #card {
   text-align: center;
-  line-he
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+/* --- Static text blocks --- */
+
+.name {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 1.5em;
+}
+
+.statement {
+  font-size: 3rem;
+  line-height: 1.35;
+  margin-bottom: 1.5em;
+}
+
+.contact {
+  font-size: 1.6rem;
+}
+
+/* --- Subtle ink texture only --- */
+
+.name,
+.statement,
+.contact {
+  text-shadow:
+    0.3px 0 rgba(0,0,0,0.15),
+   -0.3px 0 rgba(0,0,0,0.15),
+    0 0.3px rgba(0,0,0,0.12);
+}
