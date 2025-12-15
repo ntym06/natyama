@@ -22,7 +22,7 @@ body {
   transform: translateY(-50%);
   width: 90vw;
 
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   line-height: 1.6;
   text-align: left;
 
@@ -63,34 +63,7 @@ body {
   50% { transform: translateY(-2px); }
   100% { transform: translateY(0); }
 }
-body {
-  transition: background-color 2s;
-}
 
 .float-text {
   animation: drift 18s ease-in-out infinite;
 }
-/* 背景グラデーションアニメーション */
-@keyframes subtleGradient {
-  0% {
-    background: linear-gradient(120deg, #f5f7fa, #e4e8f0);
-  }
-  25% {
-    background: linear-gradient(120deg, #e4e8f0, #f0f4f8);
-  }
-  50% {
-    background: linear-gradient(120deg, #f0f4f8, #e8edf2);
-  }
-  75% {
-    background: linear-gradient(120deg, #e8edf2, #f5f7fa);
-  }
-  100% {
-    background: linear-gradient(120deg, #f5f7fa, #e4e8f0);
-  }
-}
-
-body {
-  animation: subtleGradient 120s ease-in-out infinite;
-  background-size: 400% 400%;
-}
-
