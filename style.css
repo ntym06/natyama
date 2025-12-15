@@ -1,13 +1,5 @@
-* {
-  box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 2000px; /* スクロール用 */
-}
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; width:100%; height:2000px; }
 
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -17,19 +9,31 @@ body {
 
 .float-text {
   position: fixed;
-  top: 45%; /* 少し下げてモバイルでも収まる */
+  top: 45%;
   left: 5%;
   transform: translateY(-50%);
   width: 90vw;
   pointer-events: none;
 }
 
+/* ヘッダー: 左にタイトル、右に言語ラベル */
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
 .studio-name {
   font-weight: 600;
   font-size: 1.2rem;
-  display: block;
-  margin-bottom: 0.5em;
-  transition: opacity 0.2s, color 0.2s;
+  transition: color 0.2s;
+}
+
+.lang-label {
+  font-size: 0.7rem;
+  pointer-events: auto;
+  transition: color 0.2s;
 }
 
 /* 本文 */
@@ -43,23 +47,13 @@ body {
 .lang { display: none; }
 .lang.active { display: block; }
 
-/* 言語ラベル */
-.lang-label {
-  display: block;
-  margin-top: 0.8em;
-  font-size: 0.7rem;
-  color: rgba(0,0,0,0.3);
-  transition: opacity 0.2s, color 0.2s;
-}
-
 /* 浮遊感 */
 @keyframes drift {
   0% { transform: translateY(0); }
   50% { transform: translateY(-1.5px); }
   100% { transform: translateY(0); }
 }
-
-.float-text {
+.float-text .text-box {
   animation: drift 20s ease-in-out infinite;
 }
 
@@ -70,7 +64,6 @@ body {
   opacity: 0;
   transition: opacity 1s;
 }
-
 .after-scroll img {
   width: 100%;
   max-width: 600px;
@@ -79,12 +72,6 @@ body {
 
 /* モバイル用調整 */
 @media (max-width: 480px) {
-  .float-text {
-    top: 50%; 
-  }
-  .lang-label {
-    position: fixed;
-    top: 5%;
-    right: 5%;
-  }
+  .float-text { top: 50%; }
+  .lang-label { position: fixed; top: 5%; right: 5%; }
 }
