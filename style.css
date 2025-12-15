@@ -17,32 +17,28 @@ body {
 
 .float-text {
   position: fixed;
-  top: 50%;
+  top: 40%; /* 少し上にずらす */
   left: 5%;
   transform: translateY(-50%);
   width: 90vw;
 
-  font-size: 1.5rem;
-  line-height: 1.6;
-  text-align: left;
-
-  color: rgba(20,40,80,0.35);
   pointer-events: none;
+}
 
-  transition: filter 0.1s, opacity 0.1s;
+/* ヘッダー行: タイトル左寄せ、言語右寄せ */
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
 }
 
 .studio-name {
   font-weight: 600;
-  margin-right: 0.3em;
+  font-size: 1.5rem;
 }
 
-.lang { display: none; }
-.lang.active { display: block; }
-
 .lang-labels {
-  display: block;
-  margin-top: 1em;
   font-size: 0.7rem;
   color: rgba(0,0,0,0.35);
   pointer-events: auto;
@@ -53,17 +49,37 @@ body {
   margin: 0 0.2em;
 }
 
-.lang-labels span:hover {
-  opacity: 0.7;
+.lang-labels span:hover { opacity: 0.7; }
+
+/* 本文 */
+.text-box {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  text-align: left;
 }
 
-/* 微細な浮遊感 */
+.lang { display: none; }
+.lang.active { display: block; }
+
+/* 浮遊感 */
 @keyframes drift {
   0% { transform: translateY(0); }
   50% { transform: translateY(-2px); }
   100% { transform: translateY(0); }
 }
 
-.float-text {
+.float-text .text-box {
   animation: drift 18s ease-in-out infinite;
+}
+
+/* スクロール後に表示する要素 */
+.after-scroll {
+  display: none;
+  margin-top: 2em;
+}
+
+.after-scroll img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
 }
