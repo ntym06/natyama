@@ -1,9 +1,15 @@
-.name,
-.statement,
-.contact {
-  text-shadow:
-    0.5px 0 rgba(0,0,0,0.15),
-   -0.5px 0 rgba(0,0,0,0.15),
-    0 0.5px rgba(0,0,0,0.1),
-    0 -0.5px rgba(0,0,0,0.1);
+const card = document.getElementById("card");
+
+let t = 0;
+
+function drift() {
+  t += 0.01;
+
+  const y = Math.sin(t) * 4;
+  const x = Math.cos(t * 0.7) * 2;
+
+  card.style.transform = `translate(${x}px, ${y}px)`;
+  requestAnimationFrame(drift);
 }
+
+drift();
