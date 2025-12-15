@@ -22,7 +22,7 @@ body {
 #card {
   text-align: center;
   line-height: 1.6;
-  font-size: 14px; /* ベース */
+  font-size: 13px; /* ベース */
 }
 
 /* --- Text blocks (STATIC) --- */
