@@ -1,5 +1,13 @@
-* { box-sizing: border-box; }
-html, body { margin:0; padding:0; width:100%; height:2000px; }
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 2000px; /* スクロール用 */
+}
 
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -9,69 +17,53 @@ body {
 
 .float-text {
   position: fixed;
-  top: 45%;
+  top: 50%;
   left: 5%;
   transform: translateY(-50%);
   width: 90vw;
-  pointer-events: none;
-}
 
-/* ヘッダー: 左にタイトル、右に言語ラベル */
-.header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1em;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  text-align: left;
+
+  color: rgba(20,40,80,0.35);
+  pointer-events: none;
+
+  transition: filter 0.1s, opacity 0.1s;
 }
 
 .studio-name {
   font-weight: 600;
-  font-size: 1.2rem;
-  transition: color 0.2s;
-}
-
-.lang-label {
-  font-size: 0.7rem;
-  pointer-events: auto;
-  transition: color 0.2s;
-}
-
-/* 本文 */
-.text-box {
-  font-size: 1rem;
-  line-height: 1.5;
-  text-align: left;
-  transition: opacity 0.2s, filter 0.2s, color 0.2s;
+  margin-right: 0.3em;
 }
 
 .lang { display: none; }
 .lang.active { display: block; }
 
-/* 浮遊感 */
+.lang-labels {
+  display: block;
+  margin-top: 1em;
+  font-size: 0.7rem;
+  color: rgba(0,0,0,0.35);
+  pointer-events: auto;
+}
+
+.lang-labels span {
+  cursor: pointer;
+  margin: 0 0.2em;
+}
+
+.lang-labels span:hover {
+  opacity: 0.7;
+}
+
+/* 微細な浮遊感 */
 @keyframes drift {
   0% { transform: translateY(0); }
-  50% { transform: translateY(-1.5px); }
+  50% { transform: translateY(-2px); }
   100% { transform: translateY(0); }
 }
-.float-text .text-box {
-  animation: drift 20s ease-in-out infinite;
-}
 
-/* スクロール後に表示する要素 */
-.after-scroll {
-  display: none;
-  margin-top: 1.5em;
-  opacity: 0;
-  transition: opacity 1s;
-}
-.after-scroll img {
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-}
-
-/* モバイル用調整 */
-@media (max-width: 480px) {
-  .float-text { top: 50%; }
-  .lang-label { position: fixed; top: 5%; right: 5%; }
+.float-text {
+  animation: drift 18s ease-in-out infinite;
 }
