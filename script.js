@@ -1,9 +1,10 @@
-const blocks = document.querySelectorAll('.float-text .lang');
+const blocks = document.querySelectorAll('.text-box .lang');
 const labels = document.querySelectorAll('.lang-labels span');
 const floatText = document.querySelector('.float-text');
+const afterScroll = document.querySelector('.after-scroll');
 const body = document.body;
 
-// 言語ごとの色設定
+// 言語ごとの色
 const langColors = {
   en: { bg: [238,243,250], fg: [20,40,80] },
   ja: { bg: [246,241,231], fg: [60,30,10] },
@@ -24,7 +25,7 @@ function showLang(lang) {
 
   const {bg, fg} = langColors[lang];
   body.style.background = `rgb(${bg[0]},${bg[1]},${bg[2]})`;
-  floatText.style.color = `rgba(${fg[0]},${fg[1]},${fg[2]},0.35)`;
+  floatText.querySelector('.text-box').style.color = `rgba(${fg[0]},${fg[1]},${fg[2]},0.85)`;
 }
 
 // 初期表示
@@ -56,12 +57,18 @@ function animateBackground() {
 
 animateBackground();
 
-// スクロールに応じた文字のにじみ・消失
+// スクロールに応じた文字のにじみ・消失 & イメージ表示
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
-  const maxScroll = 500; // エフェクト最大量
+  const maxScroll = 500; 
   const t = Math.min(scrollY / maxScroll, 1);
 
-  floatText.style.filter = `blur(${t*5}px)`; // 最大5px
-  floatText.style.opacity = 1 - t;           // 0〜1
+  floatText.querySelector('.text-box').style.filter = `blur(${t*5}px)`;
+  floatText.querySelector('.text-box').style.opacity = 1 - t;
+
+  if(t >= 1) {
+    afterScroll.style.display = 'block';
+  } else {
+    afterScroll.style.display = 'none';
+  }
 });
