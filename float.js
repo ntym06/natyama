@@ -1,12 +1,9 @@
-const card = document.getElementById("card");
-
-let t = 0;
-
-function float() {
-  t += 0.01;
-  const y = Math.sin(t) * 6;
-  card.style.transform = `translateY(${y}px)`;
-  requestAnimationFrame(float);
+.name,
+.statement,
+.contact {
+  text-shadow:
+    0.5px 0 rgba(0,0,0,0.15),
+   -0.5px 0 rgba(0,0,0,0.15),
+    0 0.5px rgba(0,0,0,0.1),
+    0 -0.5px rgba(0,0,0,0.1);
 }
-
-float();
