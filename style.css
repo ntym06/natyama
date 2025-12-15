@@ -1,3 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
+}
+
 .float-text {
   position: absolute;
   top: 50%;
@@ -13,24 +30,27 @@
   pointer-events: none;
 }
 
+.studio-name {
+  font-weight: 600;
+  margin-right: 0.3em;
+}
+
+.lang-label {
+  font-size: 0.7rem;
+  color: rgba(0,0,0,0.35);
+  margin-left: 0.4em;
+}
+
 .lang { display: none; }
 .lang.active { display: block; }
 
-.studio-name { font-weight: 600; margin-right: 0.3em; }
-
-.lang-switch {
-  font-size: 0.65rem;
-  opacity: 0.4;
-  margin-left: 0.5em;
+/* 微細な浮遊感 */
+@keyframes drift {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
 }
 
-.lang-switch button {
-  background: none;
-  border: none;
-  padding: 0;
-  font-size: 0.65rem;
-  color: inherit;
-  cursor: pointer;
+.float-text {
+  animation: drift 18s ease-in-out infinite;
 }
-
-.lang-switch button:hover { opacity: 0.9; }
