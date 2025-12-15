@@ -13,32 +13,47 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* --- Layout --- */
+
 #card {
   text-align: center;
   line-height: 1.6;
   font-size: 14px;
 }
 
+/* --- Text blocks (static) --- */
+
 .name {
+  font-size: 3rem;
   font-weight: 600;
   margin-bottom: 1.5em;
 }
 
+.contact {
+  font-size: 1.6rem;
+}
+
+/* --- Statement block (position is fixed) --- */
+
 .statement {
+  font-size: 3rem;
+  line-height: 1.35;
   margin-bottom: 1.5em;
 }
 
-.contact {
-  font-size: 13px;
-}
+/* --- Only the two lines move --- */
+
 .statement span {
   display: inline-block;
-  animation: jitter 8s infinite ease-in-out;
+  animation: typeBreath 8s infinite ease-in-out,
+             blurShift 7s infinite ease-in-out;
 }
 
 .statement span:nth-child(2) {
-  animation-delay: 2s;
+  animation-delay: 2s, 2s;
 }
+
+/* --- Shared subtle ink-bleed --- */
 
 .name,
 .statement,
@@ -51,30 +66,20 @@ body {
     0.8px 0.8px rgba(0,0,0,0.08);
 }
 
+/* --- Animations --- */
+
+/* font-size only (relative, safe) */
+@keyframes typeBreath {
+  0%   { font-size: 100%; }
+  40%  { font-size: 103%; }
+  70%  { font-size: 97%; }
+  100% { font-size: 100%; }
+}
+
+/* subtle focus loss */
 @keyframes blurShift {
   0%   { filter: blur(0px); }
   40%  { filter: blur(0.25px); }
   60%  { filter: blur(0.45px); }
   100% { filter: blur(0px); }
 }
-
-.statement {
-  animation: blurShift 7s infinite ease-in-out;
-}
-.statement {
-  line-height: 1.35;
-  height: auto;
-}
-
-@keyframes typeBreath {
-  0%   { font-size: 1rem; }
-  40%  { font-size: 1.015rem; }
-  70%  { font-size: 0.985rem; }
-  100% { font-size: 1rem; }
-}
-
-.statement {
-  animation: typeBreath 8s infinite ease-in-out;
-}
-
-
