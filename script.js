@@ -1,5 +1,5 @@
 const blocks = document.querySelectorAll('.float-text .lang');
-const buttons = document.querySelectorAll('.lang-switch button');
+const label = document.querySelector('.lang-label');
 const body = document.body;
 
 // 言語ごとの色設定
@@ -9,7 +9,7 @@ const langColors = {
   de: { bg: [255,255,255], fg: [50,50,50] }
 };
 
-// ブラウザ言語で初期表示
+// ブラウザ言語で自動判定
 let userLang = navigator.language || navigator.userLanguage;
 userLang = userLang.toLowerCase();
 
@@ -17,24 +17,17 @@ let lang = 'en';
 if(userLang.startsWith('de')) lang = 'de';
 else if(userLang.startsWith('ja')) lang = 'ja';
 
-showLang(lang);
+// 表示切替
+blocks.forEach(b => b.classList.remove('active'));
+document.querySelector('.lang.'+lang).classList.add('active');
 
-// 切替ボタン
-buttons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const lang = btn.dataset.lang;
-    showLang(lang);
-  });
-});
+// 言語ラベル表示
+label.textContent = lang.toUpperCase();
 
-function showLang(lang) {
-  blocks.forEach(b => b.classList.remove('active'));
-  document.querySelector('.lang.'+lang).classList.add('active');
-
-  const {bg, fg} = langColors[lang];
-  body.style.background = `rgb(${bg[0]},${bg[1]},${bg[2]})`;
-  document.querySelector('.float-text').style.color = `rgba(${fg[0]},${fg[1]},${fg[2]},0.35)`;
-}
+// 背景・文字色設定
+const {bg, fg} = langColors[lang];
+body.style.background = `rgb(${bg[0]},${bg[1]},${bg[2]})`;
+document.querySelector('.float-text').style.color = `rgba(${fg[0]},${fg[1]},${fg[2]},0.35)`;
 
 // 背景の刻々変化
 function animateBackground() {
@@ -43,7 +36,6 @@ function animateBackground() {
   const daySeconds = 24*3600;
   const t = (seconds % daySeconds)/daySeconds;
 
-  const {bg} = langColors[document.querySelector('.float-text .lang.active').classList[1]];
   const delta = [5,5,5];
   const [r,g,b] = bg.map((v,i)=>Math.round(v + Math.sin(t*2*Math.PI)*delta[i]));
 
