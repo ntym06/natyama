@@ -1,6 +1,4 @@
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 html, body {
   margin: 0;
@@ -17,53 +15,73 @@ body {
 
 .float-text {
   position: fixed;
-  top: 50%;
+  top: 45%;
   left: 5%;
   transform: translateY(-50%);
   width: 90vw;
-
-  font-size: 1.5rem;
-  line-height: 1.6;
-  text-align: left;
-
-  color: rgba(20,40,80,0.35);
   pointer-events: none;
+}
 
-  transition: filter 0.1s, opacity 0.1s;
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
 }
 
 .studio-name {
   font-weight: 600;
-  margin-right: 0.3em;
+  font-size: 1.2rem;
+  transition: color 0.2s;
+}
+
+.lang-labels span {
+  font-size: 0.7rem;
+  transition: color 0.2s;
+}
+
+/* 本文 */
+.text-box {
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: left;
+  transition: opacity 0.2s, filter 0.2s, color 0.2s;
 }
 
 .lang { display: none; }
 .lang.active { display: block; }
 
-.lang-labels {
-  display: block;
-  margin-top: 1em;
-  font-size: 0.7rem;
-  color: rgba(0,0,0,0.35);
-  pointer-events: auto;
-}
-
-.lang-labels span {
-  cursor: pointer;
-  margin: 0 0.2em;
-}
-
-.lang-labels span:hover {
-  opacity: 0.7;
-}
-
-/* 微細な浮遊感 */
+/* 浮遊感 */
 @keyframes drift {
   0% { transform: translateY(0); }
-  50% { transform: translateY(-2px); }
+  50% { transform: translateY(-1.5px); }
   100% { transform: translateY(0); }
 }
+.float-text .text-box { animation: drift 20s ease-in-out infinite; }
 
-.float-text {
-  animation: drift 18s ease-in-out infinite;
+/* SVG抽象形態 */
+.abstract-shape {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 80vw;
+  height: 80vh;
+  pointer-events: none;
+}
+
+.shape-line {
+  fill: none;
+  stroke: rgba(255,255,255,0.05); /* 初期うっすら白線 */
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.5s, stroke-width 0.5s;
+}
+
+/* モバイル用 */
+@media (max-width: 480px) {
+  .float-text { top: 50%; }
+  .lang-labels { position: fixed; top: 5%; right: 5%; }
+  .abstract-shape { width: 100vw; height: 60vh; }
 }
