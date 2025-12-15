@@ -1,0 +1,32 @@
+import random
+
+def generate_svg(filename="random_poly.svg", num_points=12, width=400, height=400):
+    # ランダム頂点生成
+    points = [(random.randint(50, width-50), random.randint(50, height-50)) for _ in range(num_points)]
+    
+    # SVGヘッダー
+    svg_content = f'<svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">\n'
+    
+    # 点描線でランダム接続
+    num_edges = random.randint(num_points*2, num_points*3)
+    for _ in range(num_edges):
+        a, b = random.sample(points, 2)
+        dash_length = random.randint(2,5)
+        gap_length = random.randint(2,6)
+        opacity = round(random.uniform(0.3, 0.7),2)
+        svg_content += f'<line x1="{a[0]}" y1="{a[1]}" x2="{b[0]}" y2="{b[1]}" stroke="black" stroke-width="1" stroke-dasharray="{dash_length},{gap_length}" opacity="{opacity}"/>\n'
+    
+    # 点を描く
+    for (x,y) in points:
+        svg_content += f'<circle cx="{x}" cy="{y}" r="2" fill="black"/>\n'
+    
+    # SVGフッター
+    svg_content += '</svg>'
+    
+    # ファイル出力
+    with open(filename, "w") as f:
+        f.write(svg_content)
+    print(f"SVG generated: {filename}")
+
+# 実行
+generate_svg()
