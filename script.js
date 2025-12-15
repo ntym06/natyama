@@ -1,6 +1,7 @@
 const blocks = document.querySelectorAll('.text-box .lang');
-const labels = document.querySelectorAll('.lang-labels span');
+const label = document.querySelector('.lang-label');
 const floatText = document.querySelector('.float-text');
+const studioName = document.querySelector('.studio-name');
 const afterScroll = document.querySelector('.after-scroll');
 const body = document.body;
 
@@ -23,20 +24,38 @@ function showLang(lang) {
   blocks.forEach(b => b.classList.remove('active'));
   document.querySelector('.lang.'+lang).classList.add('active');
 
+  // 背景・文字色設定
   const {bg, fg} = langColors[lang];
   body.style.background = `rgb(${bg[0]},${bg[1]},${bg[2]})`;
   floatText.querySelector('.text-box').style.color = `rgba(${fg[0]},${fg[1]},${fg[2]},0.85)`;
+  studioName.style.color = `rgba(${fg[0]},${fg[1]},${fg[2]},0.85)`;
+  label.style.color = `rgba(${fg[0]},${fg[1]},${fg[2]},0.35)`;
+
+  // 言語ラベル表示
+  label.textContent = lang.toUpperCase();
 }
 
 // 初期表示
 showLang(lang);
 
-// 言語ラベルクリックで切替
-labels.forEach(label => {
-  label.addEventListener('click', () => {
-    const selected = label.dataset.lang;
-    showLang(selected);
-  });
+// スクロールに応じた文字のにじみ・消失 & イメージ表示
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const maxScroll = 500; 
+  const t = Math.min(scrollY / maxScroll, 1);
+
+  floatText.querySelector('.text-box').style.filter = `blur(${t*4}px)`;
+  floatText.querySelector('.text-box').style.opacity = 1 - t;
+  studioName.style.opacity = 1 - t;
+  label.style.opacity = 1 - t;
+
+  if(t >= 1) {
+    afterScroll.style.display = 'block';
+    afterScroll.style.opacity = 1;
+  } else {
+    afterScroll.style.display = 'none';
+    afterScroll.style.opacity = 0;
+  }
 });
 
 // 背景の刻々変化
@@ -56,19 +75,3 @@ function animateBackground() {
 }
 
 animateBackground();
-
-// スクロールに応じた文字のにじみ・消失 & イメージ表示
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-  const maxScroll = 500; 
-  const t = Math.min(scrollY / maxScroll, 1);
-
-  floatText.querySelector('.text-box').style.filter = `blur(${t*5}px)`;
-  floatText.querySelector('.text-box').style.opacity = 1 - t;
-
-  if(t >= 1) {
-    afterScroll.style.display = 'block';
-  } else {
-    afterScroll.style.display = 'none';
-  }
-});
