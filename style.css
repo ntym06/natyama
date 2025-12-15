@@ -1,55 +1,52 @@
+/* reset */
 * {
   box-sizing: border-box;
-  animation: none !important;
-  transition: none !important;
-  transform: none !important;
-  filter: none !important;
+  animation: none;
+  transition: none;
+}
+
+/* base */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
 }
 
 body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ffffff; /* 時間帯JSで上書き */
-  color: #000000;
+  background: #ffffff; /* JSで時間帯により上書き */
+  overflow: hidden;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* --- Layout --- */
+/* floating text */
+.float-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
 
-#card {
-  text-align: center;
-  line-height: 1.6;
-  font-size: 12px; /* ベース */
-}
+  font-size: 1rem;          /* mobile safe */
+  line-height: 1.7;
+  text-align: right;
 
-/* --- Text blocks (STATIC) --- */
+  color: rgba(20, 40, 80, 0.35);
+  letter-spacing: 0.02em;
 
-.name {
-  font-size: 1.3rem; 
-  font-weight: 600;
-  margin-bottom: 1.3em;
-}
-
-.statement {
-  font-size: 1.3rem; 
-  line-height: 1.45;
-  margin-bottom: 1.3em;
-}
-
-.contact {
-  font-size: 0.75rem;  
-}
-
-/* --- Subtle ink texture only --- */
-
-.name,
-.statement,
-.contact {
   text-shadow:
-    0.2px 0 rgba(0,0,0,0.12),
-   -0.2px 0 rgba(0,0,0,0.12),
-    0 0.2px rgba(0,0,0,0.08);
+    0 0 0.6px rgba(20,40,80,0.15);
+
+  pointer-events: none;
+}
+
+/* 微細な浮遊感（嫌ならこのブロック削除） */
+@keyframes drift {
+  0%   { transform: translate(-50%, -50%) translateY(0); }
+  50%  { transform: translate(-50%, -50%) translateY(-2px); }
+  100% { transform: translate(-50%, -50%) translateY(0); }
+}
+
+.float-text {
+  animation: drift 18s ease-in-out infinite;
 }
