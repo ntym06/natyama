@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  color: #000000;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+#card {
+  text-align: center;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.name {
+  font-weight: 600;
+  margin-bottom: 1.5em;
+}
+
+.statement {
+  margin-bottom: 1.5em;
+}
+
+.contact {
+  font-size: 13px;
+}
