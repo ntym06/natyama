@@ -1,4 +1,4 @@
-"const blocks = document.querySelectorAll('.float-text .lang');
+const blocks = document.querySelectorAll('.float-text .lang');
 const labels = document.querySelectorAll('.lang-labels span');
 const floatText = document.querySelector('.float-text');
 const body = document.body;
@@ -64,4 +64,4 @@ window.addEventListener('scroll', () => {
 
   floatText.style.filter = `blur(${t*5}px)`; // 最大5px
   floatText.style.opacity = 1 - t;           // 0〜1
-});"
+});
