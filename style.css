@@ -1,11 +1,9 @@
-/* reset */
 * {
   box-sizing: border-box;
   animation: none;
   transition: none;
 }
 
-/* base */
 html, body {
   margin: 0;
   padding: 0;
@@ -14,37 +12,34 @@ html, body {
 }
 
 body {
-  background: #ffffff; /* JSで時間帯により上書き */
+  background: #ffffff;
   overflow: hidden;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* floating text */
 .float-text {
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 5%;          /* 左寄せ */
+  transform: translateY(-50%);
   width: 90vw;
 
-  font-size: 1rem;          /* mobile safe */
+  font-size: 1rem;
   line-height: 1.7;
-  text-align: right;
+  text-align: left;
 
   color: rgba(20, 40, 80, 0.35);
   letter-spacing: 0.02em;
 
-  text-shadow:
-    0 0 0.6px rgba(20,40,80,0.15);
-
+  text-shadow: 0 0 0.6px rgba(20,40,80,0.15);
   pointer-events: none;
 }
 
-/* 微細な浮遊感（嫌ならこのブロック削除） */
+/* 微細な浮遊感 */
 @keyframes drift {
-  0%   { transform: translate(-50%, -50%) translateY(0); }
-  50%  { transform: translate(-50%, -50%) translateY(-2px); }
-  100% { transform: translate(-50%, -50%) translateY(0); }
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
 }
 
 .float-text {
