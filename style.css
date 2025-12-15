@@ -17,28 +17,30 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* --- Layout --- */
+
 #card {
   text-align: center;
   line-height: 1.6;
-  font-size: 14px;
+  font-size: 14px; /* ベース */
 }
 
 /* --- Text blocks (STATIC) --- */
 
 .name {
-  font-size: 2rem;
+  font-size: 1.5rem;  /* 24px */
   font-weight: 600;
-  margin-bottom: 1.4em;
+  margin-bottom: 1.3em;
 }
 
 .statement {
-  font-size: 2rem;
-  line-height: 1.4;
-  margin-bottom: 1.4em;
+  font-size: 1.5rem;  /* 24px */
+  line-height: 1.45;
+  margin-bottom: 1.3em;
 }
 
 .contact {
-  font-size: 1rem;
+  font-size: 1rem;    /* 16px */
 }
 
 /* --- Subtle ink texture only --- */
@@ -47,7 +49,7 @@ body {
 .statement,
 .contact {
   text-shadow:
-    0.25px 0 rgba(0,0,0,0.14),
-   -0.25px 0 rgba(0,0,0,0.14),
-    0 0.25px rgba(0,0,0,0.1);
+    0.2px 0 rgba(0,0,0,0.12),
+   -0.2px 0 rgba(0,0,0,0.12),
+    0 0.2px rgba(0,0,0,0.08);
 }
