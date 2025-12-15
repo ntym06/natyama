@@ -62,3 +62,14 @@ body {
   animation: blurShift 7s infinite ease-in-out;
 }
 
+.statement.ghost {
+  position: absolute;
+  opacity: 0.12;
+  transform: translate(0.6px, 0.6px);
+  filter: blur(0.6px);
+  pointer-events: none;
+}
+
+.statement.main {
+  position: relative;
+}
