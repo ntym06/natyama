@@ -1,5 +1,5 @@
 const blocks = document.querySelectorAll('.float-text .lang');
-const label = document.querySelector('.lang-label');
+const labels = document.querySelectorAll('.lang-labels span');
 const floatText = document.querySelector('.float-text');
 const body = document.body;
 
@@ -10,7 +10,7 @@ const langColors = {
   de: { bg: [255,255,255], fg: [50,50,50] }
 };
 
-// ブラウザ言語判定
+// ブラウザ言語で初期判定
 let userLang = navigator.language || navigator.userLanguage;
 userLang = userLang.toLowerCase();
 
@@ -18,17 +18,25 @@ let lang = 'en';
 if(userLang.startsWith('de')) lang = 'de';
 else if(userLang.startsWith('ja')) lang = 'ja';
 
-// 表示切替
-blocks.forEach(b => b.classList.remove('active'));
-document.querySelector('.lang.'+lang).classList.add('active');
+function showLang(lang) {
+  blocks.forEach(b => b.classList.remove('active'));
+  document.querySelector('.lang.'+lang).classList.add('active');
 
-// 言語ラベル表示
-label.textContent = lang.toUpperCase();
+  const {bg, fg} = langColors[lang];
+  body.style.background = `rgb(${bg[0]},${bg[1]},${bg[2]})`;
+  floatText.style.color = `rgba(${fg[0]},${fg[1]},${fg[2]},0.35)`;
+}
 
-// 背景・文字色設定
-let {bg, fg} = langColors[lang];
-body.style.background = `rgb(${bg[0]},${bg[1]},${bg[2]})`;
-floatText.style.color = `rgba(${fg[0]},${fg[1]},${fg[2]},0.35)`;
+// 初期表示
+showLang(lang);
+
+// 言語ラベルクリックで切替
+labels.forEach(label => {
+  label.addEventListener('click', () => {
+    const selected = label.dataset.lang;
+    showLang(selected);
+  });
+});
 
 // 背景の刻々変化
 function animateBackground() {
@@ -37,6 +45,8 @@ function animateBackground() {
   const daySeconds = 24*3600;
   const t = (seconds % daySeconds)/daySeconds;
 
+  const activeLang = document.querySelector('.lang.active').classList[1];
+  const {bg} = langColors[activeLang];
   const delta = [5,5,5];
   const [r,g,b] = bg.map((v,i)=>Math.round(v + Math.sin(t*2*Math.PI)*delta[i]));
   body.style.background = `rgb(${r},${g},${b})`;
@@ -46,12 +56,12 @@ function animateBackground() {
 
 animateBackground();
 
-// スクロールに応じた文字のにじみと消失
+// スクロールに応じた文字のにじみ・消失
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
-  const maxScroll = 500; // エフェクト最大値
+  const maxScroll = 500; // エフェクト最大量
   const t = Math.min(scrollY / maxScroll, 1);
 
-  floatText.style.filter = `blur(${t*5}px)`; // 最大5pxのにじみ
-  floatText.style.opacity = 1 - t;           // 0〜1の消失
+  floatText.style.filter = `blur(${t*5}px)`; // 最大5px
+  floatText.style.opacity = 1 - t;           // 0〜1
 });
