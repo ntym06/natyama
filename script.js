@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const active = document.querySelector('.lang.active');
     if (active) {
-      const activeLang = active.classList[1];
+      const activeLang = [...active.classList].find(c => c !== 'lang' && c !== 'active');
+
       const { bg } = langColors[activeLang];
 
       const delta = [6, 6, 6];
