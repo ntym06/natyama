@@ -67,3 +67,39 @@ body {
 .float-text {
   animation: drift 18s ease-in-out infinite;
 }
+/* Gradient Background Animation */
+:root {
+  --duration: 15s;
+}
+
+/* Default animated gradient */
+body {
+  background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #ff9a9e);
+  background-size: 400% 400%;
+  animation: gradientBG var(--duration) ease infinite;
+  transition: .5s ease;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Language color overrides */
+.lang-python      { --clr1: #3776ab; --clr2: #4B8BBE; }
+.lang-javascript  { --clr1: #f7df1e; --clr2: #ec9f05; }
+.lang-html        { --clr1: #e34f26; --clr2: #f06529; }
+.lang-css         { --clr1: #264de4; --clr2: #2965f1; }
+.lang-default     { --clr1: #ff9a9e; --clr2: #fad0c4; }
+
+.lang-python,
+.lang-javascript,
+.lang-html,
+.lang-css,
+.lang-default {
+  background: linear-gradient(45deg, var(--clr1), var(--clr2));
+  background-size: 400% 400%;
+  animation: gradientBG var(--duration) ease infinite;
+}
+
