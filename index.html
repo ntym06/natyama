@@ -38,9 +38,11 @@
   }
 
   .studio {
-    display: block;
-    margin-bottom: 3rem;
-  }
+  display: block;
+  margin-bottom: 3rem;
+  font-size: 0.9em;
+  letter-spacing: 0.02em;
+}
 
   /* UI */
   .ui {
@@ -94,19 +96,32 @@
   const langs = document.querySelectorAll('.lang');
   const buttons = document.querySelectorAll('.ui span');
 
-  const colors = {
-    en: 'rgb(238,243,250)',
-    ja: 'rgb(246,241,231)',
-    de: 'rgb(255,255,255)'
-  };
+const colors = {
+  en: {
+    bg: 'rgb(238,243,250)',
+    fg: 'rgba(60,65,75,0.55)'
+  },
+  ja: {
+    bg: 'rgb(246,241,231)',
+    fg: 'rgba(70,60,50,0.55)'
+  },
+  de: {
+    bg: 'rgb(250,250,250)',
+    fg: 'rgba(80,80,80,0.5)'
+  }
+};
 
   function setLang(lang) {
-    langs.forEach(l => l.classList.remove('active'));
-    document.querySelector('.lang.' + lang).classList.add('active');
-    document.body.style.backgroundColor = colors[lang];
-    text.style.opacity = 1;
-    text.style.filter = 'blur(0px)';
-  }
+  langs.forEach(l => l.classList.remove('active'));
+  document.querySelector('.lang.' + lang).classList.add('active');
+
+  document.body.style.backgroundColor = colors[lang].bg;
+  text.style.color = colors[lang].fg;
+
+  text.style.opacity = 1;
+  text.style.filter = 'blur(0px)';
+}
+
 
   // 初期言語
   const initial =
