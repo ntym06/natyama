@@ -1,40 +1,67 @@
-const blocks = document.querySelectorAll('.lang');
+"const blocks = document.querySelectorAll('.float-text .lang');
 const labels = document.querySelectorAll('.lang-labels span');
 const floatText = document.querySelector('.float-text');
 const body = document.body;
 
+// 言語ごとの色設定
 const langColors = {
-  en: { bg: [238,243,250] },
-  ja: { bg: [246,241,231] },
-  de: { bg: [245,245,245] }
+  en: { bg: [238,243,250], fg: [20,40,80] },
+  ja: { bg: [246,241,231], fg: [60,30,10] },
+  de: { bg: [255,255,255], fg: [50,50,50] }
 };
 
-// 初期言語
+// ブラウザ言語で初期判定
+let userLang = navigator.language || navigator.userLanguage;
+userLang = userLang.toLowerCase();
+
 let lang = 'en';
-const browserLang = navigator.language.toLowerCase();
-if (browserLang.startsWith('ja')) lang = 'ja';
-if (browserLang.startsWith('de')) lang = 'de';
+if(userLang.startsWith('de')) lang = 'de';
+else if(userLang.startsWith('ja')) lang = 'ja';
 
-function showLang(target) {
+function showLang(lang) {
   blocks.forEach(b => b.classList.remove('active'));
-  document.querySelector('.lang.' + target).classList.add('active');
+  document.querySelector('.lang.'+lang).classList.add('active');
 
-  const { bg } = langColors[target];
-  body.style.backgroundColor = `rgb(${bg[0]},${bg[1]},${bg[2]})`;
+  const {bg, fg} = langColors[lang];
+  body.style.background = `rgb(${bg[0]},${bg[1]},${bg[2]})`;
+  floatText.style.color = `rgba(${fg[0]},${fg[1]},${fg[2]},0.35)`;
 }
 
+// 初期表示
 showLang(lang);
 
-// UI 切替
+// 言語ラベルクリックで切替
 labels.forEach(label => {
   label.addEventListener('click', () => {
-    showLang(label.dataset.lang);
+    const selected = label.dataset.lang;
+    showLang(selected);
   });
 });
 
-// スクロール dissolve
+// 背景の刻々変化
+function animateBackground() {
+  const now = new Date();
+  const seconds = now.getHours()*3600 + now.getMinutes()*60 + now.getSeconds();
+  const daySeconds = 24*3600;
+  const t = (seconds % daySeconds)/daySeconds;
+
+  const activeLang = document.querySelector('.lang.active').classList[1];
+  const {bg} = langColors[activeLang];
+  const delta = [5,5,5];
+  const [r,g,b] = bg.map((v,i)=>Math.round(v + Math.sin(t*2*Math.PI)*delta[i]));
+  body.style.background = `rgb(${r},${g},${b})`;
+
+  requestAnimationFrame(animateBackground);
+}
+
+animateBackground();
+
+// スクロールに応じた文字のにじみ・消失
 window.addEventListener('scroll', () => {
-  const t = Math.min(window.scrollY / 400, 1);
-  floatText.style.opacity = 1 - t;
-  floatText.style.filter = `blur(${t * 6}px)`;
-});
+  const scrollY = window.scrollY;
+  const maxScroll = 500; // エフェクト最大量
+  const t = Math.min(scrollY / maxScroll, 1);
+
+  floatText.style.filter = `blur(${t*5}px)`; // 最大5px
+  floatText.style.opacity = 1 - t;           // 0〜1
+});"
