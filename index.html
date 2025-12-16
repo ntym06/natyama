@@ -1,39 +1,124 @@
-"<!DOCTYPE html>
-<html lang=""en"">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset=""UTF-8"">
-  <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
-  <title>nat/yama</title>
-  <link rel=""stylesheet"" href=""style.css"">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>nat/yama — under construction</title>
+
+<style>
+  html, body {
+    margin: 0;
+    height: 200vh;
+    transition: background-color 1s ease;
+    font-family: serif;
+  }
+
+  /* 溶けるテキスト層 */
+  .text {
+    position: fixed;
+    inset: 0;
+    padding: 4rem;
+    pointer-events: none;
+    transition: opacity 0.6s ease, filter 0.6s ease;
+  }
+
+  .lang {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  .lang.active {
+    opacity: 1;
+  }
+
+  .studio {
+    display: block;
+    margin-bottom: 3rem;
+  }
+
+  /* UI */
+  .ui {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+  }
+
+  .ui span {
+    cursor: pointer;
+    opacity: 0.4;
+  }
+
+  .ui span:hover {
+    opacity: 1;
+  }
+</style>
 </head>
+
 <body>
 
-  <div class=""float-text"">
-    <span class=""studio-name"">nat/yama</span>
+<div class="text" id="text">
+  <span class="studio">nat/yama — under construction</span>
 
-    <p class=""lang en"">
-      crafts experiences from<br>
-      complex ideas across media
-    </p>
+  <p class="lang en active">
+    crafts experiences<br />
+    from complex ideas across media
+  </p>
 
-    <p class=""lang ja"">
-      文化や領域を横断し<br>
-      思考を体験に組み立てます
-    </p>
+  <p class="lang ja">
+    は文化や領域を横断し<br />
+    思考を体験に組み立てます
+  </p>
 
-    <p class=""lang de"">
-      gestaltet komplexe Ideen<br>
-      zu erfahrbaren Formaten<br>
-    </p>
+  <p class="lang de">
+    gestaltet komplexe Ideen medienübergreifend<br />
+    als erfahrbare Formate.
+  </p>
+</div>
 
-    <!-- 本文下に言語ラベル -->
-    <div class=""lang-labels"">
-      <span data-lang=""en"">EN</span> | 
-      <span data-lang=""ja"">JP</span> | 
-      <span data-lang=""de"">DE</span>
-    </div>
-  </div>
+<div class="ui">
+  <span data-lang="en">EN</span> |
+  <span data-lang="ja">JP</span> |
+  <span data-lang="de">DE</span>
+</div>
 
-  <script src=""script.js""></script>
+<script>
+  const text = document.getElementById('text');
+  const langs = document.querySelectorAll('.lang');
+  const buttons = document.querySelectorAll('.ui span');
+
+  const colors = {
+    en: 'rgb(238,243,250)',
+    ja: 'rgb(246,241,231)',
+    de: 'rgb(255,255,255)'
+  };
+
+  function setLang(lang) {
+    langs.forEach(l => l.classList.remove('active'));
+    document.querySelector('.lang.' + lang).classList.add('active');
+    document.body.style.backgroundColor = colors[lang];
+    text.style.opacity = 1;
+    text.style.filter = 'blur(0px)';
+  }
+
+  // 初期言語
+  const initial =
+    navigator.language.startsWith('ja') ? 'ja' :
+    navigator.language.startsWith('de') ? 'de' : 'en';
+  setLang(initial);
+
+  buttons.forEach(b => {
+    b.onclick = () => setLang(b.dataset.lang);
+  });
+
+  // スクロールで溶ける
+  window.addEventListener('scroll', () => {
+    const t = Math.min(scrollY / 400, 1);
+    text.style.opacity = 1 - t;
+    text.style.filter = `blur(${t * 6}px)`;
+  });
+</script>
+
 </body>
-</html>"
+</html>
