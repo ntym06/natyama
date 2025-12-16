@@ -50,3 +50,25 @@ html, body {
 .lang-labels span:hover {
   opacity: 1;
 }
+/* ===== Mobile adjustment ===== */
+@media (max-width: 768px) {
+
+  .float-text {
+    position: relative;   /* fixed を解除 */
+    top: auto;
+    left: auto;
+    padding: 1.5rem 1.25rem;
+    max-width: 100%;
+    font-size: 1.4rem;
+  }
+
+  .studio-name {
+    margin-bottom: 1.5rem;
+    font-size: 0.9em;
+  }
+
+  .lang-labels {
+    margin-top: 2rem;
+    font-size: 11px;
+  }
+}
