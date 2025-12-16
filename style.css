@@ -1,39 +1,48 @@
-html, body {
-  margin: 0;
-  height: 200vh; /* PC用スクロール */
-  background: rgb(238,243,250);
-  transition: background-color 1s ease;
-  font-family: serif;
+* {
+  box-sizing: border-box;
 }
 
-/* ===== Text ===== */
+html, body {
+  margin: 0;
+  height: 200vh; /* スクロール用 */
+  font-family: serif;
+  background: rgb(238,243,250);
+  transition: background-color 1s ease;
+}
+
+/* ===== 全体 ===== */
 .float-text {
   position: fixed;
   top: 3rem;
   left: 3rem;
-  max-width: 65ch;
+  max-width: 60ch;
   font-size: 2.2rem;
   line-height: 1.5;
+  color: rgba(40,40,40,0.7);
   transition: opacity 0.6s ease, filter 0.6s ease;
 }
 
+/* タイトル */
 .studio-name {
   display: block;
   margin-bottom: 3rem;
-  opacity: 0.5;
+  opacity: 0.45;
+  font-size: 1rem;
 }
 
-/* PC: opacity制御 */
+/* 言語 */
 .lang {
+  position: absolute;
   opacity: 0;
   transition: opacity 0.6s ease;
 }
 
 .lang.active {
+  position: relative;
   opacity: 1;
 }
 
-/* UI */
+/* 言語UI */
 .lang-labels {
   margin-top: 4rem;
   font-size: 12px;
@@ -43,21 +52,18 @@ html, body {
 .lang-labels span {
   cursor: pointer;
   opacity: 0.4;
+  margin-right: 0.75rem;
 }
 
 .lang-labels span:hover {
   opacity: 1;
 }
 
+/* ===== Mobile ===== */
 @media (max-width: 768px) {
 
-  html, body {
-    height: auto;
-  }
-
   .float-text {
-    position: fixed;        /* ← PCと同じに戻す */
-    top: 1.25rem;
+    top: 1.5rem;
     left: 1.25rem;
     right: 1.25rem;
     max-width: none;
@@ -68,22 +74,7 @@ html, body {
     margin-bottom: 1.5rem;
   }
 
-  /* 🔑 非activeをレイアウトから外す */
-  .lang {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .lang.active {
-    position: relative;
-    opacity: 1;
-    pointer-events: auto;
-  }
-
   .lang-labels {
-    margin-top: 1.5rem;
-    font-size: 11px;
+    margin-top: 2rem;
   }
 }
-
