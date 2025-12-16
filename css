@@ -1,3 +1,6 @@
 .text {
   max-width: 42ch;        /* ← 行の長さを制御（重要） */
 }
+html, body {
+  transition: background 2s ease;
+}
