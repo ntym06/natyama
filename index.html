@@ -137,3 +137,9 @@ labels.forEach(label => {
 window.addEventListener('scroll', () => {
   const t = Math.min(window.scrollY / 400, 1);
   floatText.style.opacity = 1 - t;
+  floatText.style.filter = `blur(${t * 6}px)`;
+});
+</script>
+
+</body>
+</html>
