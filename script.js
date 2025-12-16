@@ -1,45 +1,40 @@
 const blocks = document.querySelectorAll('.lang');
 const labels = document.querySelectorAll('.lang-labels span');
-const floatText = document.getElementById('floatText');
+const floatText = document.querySelector('.float-text');
+const body = document.body;
 
-const colors = {
-  en: { bg: 'rgb(238,243,250)', fg: 'rgba(70,75,85,0.55)' },
-  ja: { bg: 'rgb(246,241,231)', fg: 'rgba(80,70,60,0.55)' },
-  de: { bg: 'rgb(250,250,250)', fg: 'rgba(90,90,90,0.5)' }
+const langColors = {
+  en: { bg: [238,243,250] },
+  ja: { bg: [246,241,231] },
+  de: { bg: [245,245,245] }
 };
 
-function showLang(lang) {
+// 初期言語
+let lang = 'en';
+const browserLang = navigator.language.toLowerCase();
+if (browserLang.startsWith('ja')) lang = 'ja';
+if (browserLang.startsWith('de')) lang = 'de';
+
+function showLang(target) {
   blocks.forEach(b => b.classList.remove('active'));
+  document.querySelector('.lang.' + target).classList.add('active');
 
-  const active = document.querySelector('.lang.' + lang);
-  if (!active) return;
-
-  active.classList.add('active');
-  active.style.color = colors[lang].fg;
-  document.body.style.backgroundColor = colors[lang].bg;
-
-  // 溶けをリセット
-  floatText.style.opacity = 1;
-  floatText.style.filter = 'blur(0px)';
+  const { bg } = langColors[target];
+  body.style.backgroundColor = `rgb(${bg[0]},${bg[1]},${bg[2]})`;
 }
 
-// 初期言語（ブラウザ）
-const initial =
-  navigator.language.startsWith('ja') ? 'ja' :
-  navigator.language.startsWith('de') ? 'de' : 'en';
+showLang(lang);
 
-showLang(initial);
-
-// クリック切替
+// UI 切替
 labels.forEach(label => {
   label.addEventListener('click', () => {
     showLang(label.dataset.lang);
   });
 });
 
-// スクロールでふわっと消える
+// スクロール dissolve
 window.addEventListener('scroll', () => {
   const t = Math.min(window.scrollY / 400, 1);
   floatText.style.opacity = 1 - t;
-  floatText.style.filter = `blur(${t * 5}px)`;
+  floatText.style.filter = `blur(${t * 6}px)`;
 });
