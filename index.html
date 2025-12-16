@@ -1,65 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>nat/yama — under construction</title>
 
 <style>
 html, body {
   margin: 0;
-  height: 200vh;
+  height: 200vh; /* スクロール用 */
   background: rgb(238,243,250);
-  transition: background-color 1.5s ease;
+  transition: background-color 1.2s ease;
   font-family: serif;
 }
 
 /* テキスト全体 */
-.text {
+.float-text {
   position: fixed;
-  inset: 0;
-  padding: 4rem;
+  top: 3rem;
+  left: 3rem;
+  max-width: 70ch;
   transition: opacity 0.8s ease, filter 0.8s ease;
-  font-size: clamp(1.6rem, 2.4vw, 2.6rem);
+  font-size: clamp(1.6rem, 2.5vw, 2.6rem);
   line-height: 1.5;
 }
 
 /* スタジオ名 */
-.studio {
+.studio-name {
   display: block;
   margin-bottom: 3rem;
-  font-size: 0.9em;
   opacity: 0.6;
 }
 
-/* 🔴 言語は透明で重ねる */
+/* 言語ブロック */
 .lang {
-  position: absolute;
-  max-width: 60ch;
   opacity: 0;
   transition: opacity 0.8s ease;
+  position: absolute;
 }
 
-/* 🔴 表示中の言語だけ */
+/* 表示中だけ */
 .lang.active {
   opacity: 1;
+  position: relative;
 }
 
-/* UI */
-.ui {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
+/* 言語切替UI */
+.lang-labels {
+  margin-top: 4rem;
   font-size: 12px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
 }
 
-.ui span {
+.lang-labels span {
   cursor: pointer;
   opacity: 0.4;
 }
 
-.ui span:hover {
+.lang-labels span:hover {
   opacity: 1;
 }
 </style>
@@ -67,8 +65,8 @@ html, body {
 
 <body>
 
-<div class="text" id="text">
-  <span class="studio">nat/yama — under construction</span>
+<div class="float-text" id="floatText">
+  <span class="studio-name">nat/yama — under construction</span>
 
   <p class="lang en active">
     crafts experiences<br>
@@ -84,9 +82,58 @@ html, body {
     gestaltet komplexe Ideen medienübergreifend<br>
     als erfahrbare Formate.
   </p>
+
+  <div class="lang-labels">
+    <span data-lang="en">EN</span> |
+    <span data-lang="ja">JP</span> |
+    <span data-lang="de">DE</span>
+  </div>
 </div>
 
-<div class="ui">
-  <span data-lang="en">EN</span> |
-  <span data-lang="ja">JP</span> |
-  <span data-lang="de">DE
+<script>
+const blocks = document.querySelectorAll('.lang');
+const labels = document.querySelectorAll('.lang-labels span');
+const floatText = document.getElementById('floatText');
+const body = document.body;
+
+const colors = {
+  en: { bg: [238,243,250], fg: [70,75,85] },
+  ja: { bg: [246,241,231], fg: [80,70,60] },
+  de: { bg: [250,250,250], fg: [90,90,90] }
+};
+
+function showLang(lang) {
+  blocks.forEach(b => b.classList.remove('active'));
+
+  const active = document.querySelector('.lang.' + lang);
+  if (!active) return;
+
+  active.classList.add('active');
+
+  const { bg, fg } = colors[lang];
+  body.style.backgroundColor = `rgb(${bg.join(',')})`;
+  active.style.color = `rgba(${fg.join(',')},0.55)`;
+
+  // dissolve reset
+  floatText.style.opacity = 1;
+  floatText.style.filter = 'blur(0px)';
+}
+
+// 初期言語
+let userLang = navigator.language.toLowerCase();
+let initial = userLang.startsWith('ja') ? 'ja' :
+              userLang.startsWith('de') ? 'de' : 'en';
+
+showLang(initial);
+
+// クリック切替
+labels.forEach(label => {
+  label.addEventListener('click', () => {
+    showLang(label.dataset.lang);
+  });
+});
+
+// スクロールで溶ける
+window.addEventListener('scroll', () => {
+  const t = Math.min(window.scrollY / 400, 1);
+  floatText.style.opacity = 1 - t;
