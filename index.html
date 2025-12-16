@@ -9,8 +9,21 @@
   html, body {
     margin: 0;
     height: 200vh;
-    transition: background-color 1s ease;
     font-family: serif;
+    transition: background 2s ease;
+  }
+
+  /* 背景用グラデーションアニメーション */
+  body {
+    background: linear-gradient(135deg, #e0f0ff, #cce6ff, #9BC6ED);
+    background-size: 400% 400%;
+    animation: gradientMove 20s ease infinite;
+  }
+
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 
   /* 溶けるテキスト層 */
@@ -20,11 +33,7 @@
     padding: 4rem;
     pointer-events: none;
     transition: opacity 0.6s ease, filter 0.6s ease;
-
-    /* 👇 溶け込むグレー */
     color: rgba(60, 60, 60, 0.55);
-
-    /* 👇 全体を大きめに */
     font-size: 1.5rem;
     line-height: 1.55;
   }
@@ -41,8 +50,6 @@
   .studio {
     display: block;
     margin-bottom: 3.5rem;
-
-    /* タイトルは少し控えめ */
     font-size: 1.1rem;
     opacity: 0.45;
     letter-spacing: 0.02em;
@@ -94,19 +101,17 @@
   <span class="studio">nat/yama — under construction</span>
 
   <p class="lang en active">
-    Berlin-based graphic designer<br>
+    Berlin-based designer<br>
     for cultural projects
   </p>
   <p class="lang ja">
-    nat/yama はコンセプト設計から表現まで手がける<br />
-    アートディレクターです<br>
-    文化や領域を横断し思考を体験に組み立てます<br>    
+    nat/yama はコンセプト設計から表現まで手がける<br>
+    アートディレクターです
   </p>
-    <p class="lang de">
-  Kultur- und Mediengestalterin<br>
-  für Bildungs- und Kontextprojekte
-</p>
-
+  <p class="lang de">
+    Kultur- und Mediengestalterin<br>
+    für Bildungs- und Kontextprojekte
+  </p>
 </div>
 
 <div class="ui">
@@ -116,91 +121,67 @@
 </div>
 
 <script>
-  const text = document.getElementById('text');
-  const langs = document.querySelectorAll('.lang');
-  const buttons = document.querySelectorAll('.ui span');
+const langs = document.querySelectorAll('.lang');
+const text = document.getElementById('text');
+const buttons = document.querySelectorAll('.ui span');
 
-  const colors = {
-    en: 'rgb(238,243,250)',
-    ja: 'rgb(246,241,231)',
-    de: 'rgb(245,245,245)'
-  };
+// 言語ごとの淡いグラデーションパレット
+const bgGradients = {
+  en: ['#e0f0ff', '#cce6ff', '#9BC6ED'], // 青系
+  ja: ['#fff7e6', '#fff0cc', '#ffe6b3'], // オレンジ〜黄系
+  de: ['#f0fff0', '#dfffe0', '#cce6cc']  // 緑系
+};
 
-  function setLang(lang) {
-    langs.forEach(l => l.classList.remove('active'));
-    document.querySelector('.lang.' + lang).classList.add('active');
-    document.body.style.backgroundColor = colors[lang];
-    text.style.opacity = 1;
-    text.style.filter = 'blur(0px)';
-  }
+let currentLang = navigator.language.startsWith('ja') ? 'ja' :
+                  navigator.language.startsWith('de') ? 'de' : 'en';
 
-  const initial =
-    navigator.language.startsWith('ja') ? 'ja' :
-    navigator.language.startsWith('de') ? 'de' : 'en';
-  setLang(initial);
+let gradientIndex = 0;
 
-  buttons.forEach(b => {
-    b.onclick = () => setLang(b.dataset.lang);
-  });
+// 言語切替関数
+function setLang(lang) {
+  langs.forEach(l => l.classList.remove('active'));
+  document.querySelector('.lang.' + lang).classList.add('active');
+  currentLang = lang;
 
-  window.addEventListener('scroll', () => {
-    const t = Math.min(scrollY / 400, 1);
-    text.style.opacity = 1 - t;
-    text.style.filter = `blur(${t * 6}px)`;
-  });
-</script>
-<script>
-  const langs = document.querySelectorAll('.lang');
-  const text = document.getElementById('text');
-  const buttons = document.querySelectorAll('.ui span');
+  // 背景を最初の色にリセットしてアニメーション再開
+  const colors = bgGradients[lang];
+  document.body.style.background = `linear-gradient(135deg, ${colors.join(',')})`;
+  document.body.style.backgroundSize = '400% 400%';
+  gradientIndex = 0;
 
-  // 言語ごとの淡いグラデーションカラー配列
-  const bgGradients = {
-    en: ['#e0f0ff', '#cce6ff', '#b3dbff'], // 青系
-    ja: ['#fff7e6', '#fff0cc', '#ffe6b3'], // オレンジ〜黄系
-    de: ['#f0fff0', '#dfffe0', '#cce6cc']  // 緑系
-  };
+  text.style.opacity = 1;
+  text.style.filter = 'blur(0px)';
+}
 
-  let currentLang = 
-    navigator.language.startsWith('ja') ? 'ja' :
-    navigator.language.startsWith('de') ? 'de' : 'en';
+// 言語ボタンクリック
+buttons.forEach(b => {
+  b.onclick = () => setLang(b.dataset.lang);
+});
 
-  // 言語切替関数
-  function setLang(lang) {
-    langs.forEach(l => l.classList.remove('active'));
-    document.querySelector('.lang.' + lang).classList.add('active');
-    currentLang = lang;
-    text.style.opacity = 1;
-    text.style.filter = 'blur(0px)';
-  }
+// グラデーションをスムーズに推移させるアニメーション
+function animateGradient() {
+  const colors = bgGradients[currentLang];
+  const nextIndex = (gradientIndex + 1) % colors.length;
+  const color1 = colors[gradientIndex];
+  const color2 = colors[nextIndex];
 
-  buttons.forEach(b => {
-    b.onclick = () => setLang(b.dataset.lang);
-  });
+  document.body.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+  document.body.style.backgroundSize = '400% 400%';
 
-  // 背景グラデーションアニメーション
-  let gradientIndex = 0;
-  function animateGradient() {
-    const colors = bgGradients[currentLang];
-    const nextIndex = (gradientIndex + 1) % colors.length;
-    const color1 = colors[gradientIndex];
-    const color2 = colors[nextIndex];
+  gradientIndex = nextIndex;
+  setTimeout(animateGradient, 6000); // 6秒ごとに切り替え
+}
 
-    document.body.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+// スクロールで文字が溶けるエフェクト
+window.addEventListener('scroll', () => {
+  const t = Math.min(scrollY / 400, 1);
+  text.style.opacity = 1 - t;
+  text.style.filter = `blur(${t * 6}px)`;
+});
 
-    gradientIndex = nextIndex;
-    setTimeout(animateGradient, 6000); // 6秒ごとに切り替え
-  }
-
-  setLang(currentLang);
-  animateGradient();
-
-  // スクロールでテキストが溶けるエフェクト
-  window.addEventListener('scroll', () => {
-    const t = Math.min(scrollY / 400, 1);
-    text.style.opacity = 1 - t;
-    text.style.filter = `blur(${t * 6}px)`;
-  });
+// 初期設定
+setLang(currentLang);
+animateGradient();
 </script>
 
 </body>
