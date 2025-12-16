@@ -49,32 +49,36 @@ html, body {
   opacity: 1;
 }
 
-/* ===== Mobile (ONLY ONE) ===== */
 @media (max-width: 768px) {
 
   html, body {
-    height: auto;   /* 🔑 これが超重要 */
+    height: auto;
   }
 
   .float-text {
-    position: relative;
-    padding: 1.25rem;
-    max-width: 100%;
-    font-size: 1.3rem;
+    position: fixed;        /* ← PCと同じに戻す */
+    top: 1.25rem;
+    left: 1.25rem;
+    right: 1.25rem;
+    max-width: none;
+    font-size: 1.4rem;
   }
 
   .studio-name {
     margin-bottom: 1.5rem;
   }
 
-  /* 🔑 mobileでは display制御に切替 */
+  /* 🔑 非activeをレイアウトから外す */
   .lang {
-    display: none;
-    opacity: 1; /* PC用opacityを無効化 */
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
   }
 
   .lang.active {
-    display: block;
+    position: relative;
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .lang-labels {
@@ -82,3 +86,4 @@ html, body {
     font-size: 11px;
   }
 }
+
