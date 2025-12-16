@@ -23,3 +23,144 @@
 
     /* 👇 溶け込むグレー */
     color: rgba(60, 60, 60, 0.55);
+
+    /* 👇 全体を大きめに */
+    font-size: 2.4rem;
+    line-height: 1.55;
+  }
+
+  .lang {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  .lang.active {
+    opacity: 1;
+  }
+
+  .studio {
+    display: block;
+    margin-bottom: 3.5rem;
+
+    /* タイトルは少し控えめ */
+    font-size: 1.1rem;
+    opacity: 0.45;
+    letter-spacing: 0.02em;
+  }
+
+  /* UI */
+  .ui {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    color: rgba(60,60,60,0.6);
+  }
+
+  .ui span {
+    cursor: pointer;
+    opacity: 0.4;
+  }
+
+  .ui span:hover {
+    opacity: 1;
+  }
+
+  /* mobile */
+  @media (max-width: 768px) {
+    .text {
+      padding: 2rem 1.5rem;
+      font-size: 1.6rem;
+    }
+
+    .studio {
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .ui {
+      bottom: 1.5rem;
+      right: 1.5rem;
+      font-size: 12px;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="text" id="text">
+  <span class="studio">nat/yama — under construction</span>
+
+  <p class="lang en active">
+    crafts experiences<br />
+    from complex ideas across media
+    Berlin-based freelance graphic designer,<br>
+    working on layout,<br>
+    visual and content production
+
+  </p>
+
+  <p class="lang ja">
+    nat/yamaは文化や領域を横断し<br />
+    思考を体験に組み立てます<br>
+    フリーランスのアートディレクターとして、<br>
+    リサーチや企画編集を軸に、<br>
+    コンセプト設計から表現までを手がけています
+
+  </p>
+
+  <p class="lang de">
+    nat/yama gestaltet komplexe Ideen<br />
+    als erfahrbare Formate
+    Freelance Grafikdesignerin in Berlin,<br>
+    mit Fokus auf Layout,<br>
+    visuelle Umsetzung und Produktion
+
+  </p>
+</div>
+
+<div class="ui">
+  <span data-lang="en">EN</span> |
+  <span data-lang="ja">JP</span> |
+  <span data-lang="de">DE</span>
+</div>
+
+<script>
+  const text = document.getElementById('text');
+  const langs = document.querySelectorAll('.lang');
+  const buttons = document.querySelectorAll('.ui span');
+
+  const colors = {
+    en: 'rgb(238,243,250)',
+    ja: 'rgb(246,241,231)',
+    de: 'rgb(245,245,245)'
+  };
+
+  function setLang(lang) {
+    langs.forEach(l => l.classList.remove('active'));
+    document.querySelector('.lang.' + lang).classList.add('active');
+    document.body.style.backgroundColor = colors[lang];
+    text.style.opacity = 1;
+    text.style.filter = 'blur(0px)';
+  }
+
+  const initial =
+    navigator.language.startsWith('ja') ? 'ja' :
+    navigator.language.startsWith('de') ? 'de' : 'en';
+  setLang(initial);
+
+  buttons.forEach(b => {
+    b.onclick = () => setLang(b.dataset.lang);
+  });
+
+  window.addEventListener('scroll', () => {
+    const t = Math.min(scrollY / 400, 1);
+    text.style.opacity = 1 - t;
+    text.style.filter = `blur(${t * 6}px)`;
+  });
+</script>
+
+</body>
+</html>
