@@ -8,7 +8,7 @@
 <style>
 html, body {
   margin: 0;
-  height: 200vh; /* スクロール用 */
+  min-height: 200vh; /* スクロールを必ず発生させる */
   background: rgb(238,243,250);
   transition: background-color 1.2s ease;
   font-family: serif;
@@ -21,31 +21,34 @@ html, body {
   left: 3rem;
   max-width: 70ch;
   transition: opacity 0.8s ease, filter 0.8s ease;
-  font-size: clamp(1.6rem, 2.5vw, 2.6rem);
+  font-size: clamp(1.8rem, 2.6vw, 2.8rem);
   line-height: 1.5;
 }
 
-/* スタジオ名 */
+/* タイトル */
 .studio-name {
   display: block;
   margin-bottom: 3rem;
   opacity: 0.6;
 }
 
-/* 言語ブロック */
+/* 言語ブロック（重ねない） */
 .lang {
   opacity: 0;
-  transition: opacity 0.8s ease;
-  position: absolute;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  height: 0;
+  overflow: hidden;
 }
 
-/* 表示中だけ */
+/* 表示中だけ可視 */
 .lang.active {
   opacity: 1;
-  position: relative;
+  height: auto;
+  pointer-events: auto;
 }
 
-/* 言語切替UI */
+/* UI */
 .lang-labels {
   margin-top: 4rem;
   font-size: 12px;
@@ -120,26 +123,5 @@ function showLang(lang) {
 }
 
 // 初期言語
-let userLang = navigator.language.toLowerCase();
-let initial = userLang.startsWith('ja') ? 'ja' :
-              userLang.startsWith('de') ? 'de' : 'en';
-
-showLang(initial);
-
-// クリック切替
-labels.forEach(label => {
-  label.addEventListener('click', () => {
-    showLang(label.dataset.lang);
-  });
-});
-
-// スクロールで溶ける
-window.addEventListener('scroll', () => {
-  const t = Math.min(window.scrollY / 400, 1);
-  floatText.style.opacity = 1 - t;
-  floatText.style.filter = `blur(${t * 6}px)`;
-});
-</script>
-
-</body>
-</html>
+const initial =
+  navigator.lang
