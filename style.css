@@ -1,12 +1,12 @@
 html, body {
   margin: 0;
-  height: 200vh; /* スクロール用 */
+  height: 200vh; /* PC用スクロール */
   background: rgb(238,243,250);
   transition: background-color 1s ease;
   font-family: serif;
 }
 
-/* テキスト全体 */
+/* ===== Text ===== */
 .float-text {
   position: fixed;
   top: 3rem;
@@ -17,25 +17,23 @@ html, body {
   transition: opacity 0.6s ease, filter 0.6s ease;
 }
 
-/* タイトル */
 .studio-name {
   display: block;
   margin-bottom: 3rem;
   opacity: 0.5;
 }
 
-/* 言語ブロック */
+/* PC: opacity制御 */
 .lang {
   opacity: 0;
   transition: opacity 0.6s ease;
 }
 
-/* 表示中の言語だけ */
 .lang.active {
   opacity: 1;
 }
 
-/* 言語UI */
+/* UI */
 .lang-labels {
   margin-top: 4rem;
   font-size: 12px;
@@ -50,25 +48,37 @@ html, body {
 .lang-labels span:hover {
   opacity: 1;
 }
-/* ===== Mobile adjustment ===== */
+
+/* ===== Mobile (ONLY ONE) ===== */
 @media (max-width: 768px) {
 
+  html, body {
+    height: auto;   /* 🔑 これが超重要 */
+  }
+
   .float-text {
-    position: relative;   /* fixed を解除 */
-    top: auto;
-    left: auto;
-    padding: 1.5rem 1.25rem;
+    position: relative;
+    padding: 1.25rem;
     max-width: 100%;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   .studio-name {
     margin-bottom: 1.5rem;
-    font-size: 0.9em;
+  }
+
+  /* 🔑 mobileでは display制御に切替 */
+  .lang {
+    display: none;
+    opacity: 1; /* PC用opacityを無効化 */
+  }
+
+  .lang.active {
+    display: block;
   }
 
   .lang-labels {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     font-size: 11px;
   }
 }
