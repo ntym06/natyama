@@ -1,6 +1,156 @@
-.text {
-  max-width: 42ch;        /* ← 行の長さを制御（重要） */
+/* --------------------
+   Reset (stricter)
+-------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-html, body {
-  transition: background 2s ease;
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #111;
+
+  /* background animation */
+  background: linear-gradient(
+    120deg,
+    #f6f4ef,
+    #e9edf1,
+    #f3ede8
+  );
+  background-size: 300% 300%;
+  animation: bgFlow 60s linear infinite;
+
+  /* Chrome安定化 */
+  display: flex;
+}
+
+/* --------------------
+   Background animation
+-------------------- */
+
+@keyframes bgFlow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* --------------------
+   Layout (critical fix)
+-------------------- */
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 4rem;
+
+  /* Chrome text rendering fix */
+  transform: translateZ(0);
+}
+
+.text {
+  max-width: 640px;
+}
+
+/* --------------------
+   Typography
+-------------------- */
+
+h1 {
+  font-size: 1.1rem;
+  font-weight: normal;
+  margin-bottom: 1.6rem;
+}
+
+.lang {
+  display: none;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.lang.active {
+  display: block;
+}
+.ui {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 5;
+
+  font-size: 18px;      /* ← ここが本体 */
+  letter-spacing: 0.18em;
+  color: rgba(60,60,60,0.65);
+}
+
+
+/* --------------------
+   Email GIF
+-------------------- */
+/* --------------------
+   Floating Email GIF
+-------------------- */
+
+.floating-gifs {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.mail-gif {
+  position: absolute;
+  pointer-events: auto;
+
+  opacity: 0;
+  transform: translateY(30px) scale(0.96);
+
+  transition:
+    opacity 5.5s ease,
+    transform 5.5s ease,
+    left 10s ease,
+    top 10s ease;
+}
+
+.mail-gif.is-visible {
+  opacity: 0.6;
+  transform: translateY(0) scale(1);
+}
+
+/* サイズ制御（モバイルで縮みすぎない） */
+.mail-gif img {
+  width: 420px;
+  max-width: 70vw;
+  height: auto;
+  display: block;
+}
+
+
+
+/* --------------------
+   Mobile
+-------------------- */
+@media (max-width: 768px) {
+  .ui {
+    font-size: 15px;
+    bottom: 1.8rem;
+    right: 1.5rem;
+  }
+}
+@media (max-width: 768px) {
+  .mail-gif img {
+    width: 50vw;      /* ← 画面幅の半分 */
+    max-width: 50vw; /* ← 念のため同じに */
+  }
 }
